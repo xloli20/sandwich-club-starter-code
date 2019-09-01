@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,14 +53,16 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        alsoKnown.setText(sandwich.getAlsoKnownAs().toString());
-        ingredients.setText(sandwich.getIngredients().toString());
+        alsoKnown.setText(TextUtils.join(",", sandwich.getAlsoKnownAs()));
+        ingredients.setText(TextUtils.join(", ", sandwich.getIngredients()));
+
         placeOfOrigin.setText(sandwich.getPlaceOfOrigin());
         description.setText(sandwich.getDescription());
 
         populateUI();
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.mipmap.ic_launcher)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
